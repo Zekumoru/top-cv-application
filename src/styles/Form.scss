@@ -4,10 +4,19 @@
   .title {
     margin-bottom: 16px;
   }
+
+  .buttons {
+    margin-top: 16px;
+    display: flex;
+  }
+
+  .next-btn {
+    margin-left: auto;
+  }
 }
 
 .Form-content {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
