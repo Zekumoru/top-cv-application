@@ -2,6 +2,7 @@ import React from 'react';
 import Form from './components/Form';
 import TopNavBar from './components/TopNavBar';
 import LabeledInput from './components/LabeledInput';
+import ListContainer from './components/ListContainer';
 
 const pages = [
   {
@@ -35,6 +36,8 @@ const pages = [
           rangeFrom={1920}
           rangeTo={new Date().getFullYear()}
         />
+        <button>Add</button>
+        <ListContainer />
       </div>
     ),
   },

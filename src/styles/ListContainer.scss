@@ -1,0 +1,16 @@
+.ListContainer {
+  height: 240px;
+  background-color: hsl(0, 0%, 95%);
+  border-radius: 4px;
+
+  .empty-text {
+    display: none;
+  }
+
+  .empty-text:only-child {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+  }
+}
