@@ -84,6 +84,7 @@ class App extends React.Component {
           title={title}
           content={content}
           pageIndex={this.currentPageIndex}
+          lastPage={this.currentPageIndex === pages.length - 1}
         />
       </div>
     );

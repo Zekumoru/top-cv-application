@@ -3,7 +3,7 @@ import '../styles/Form.scss';
 
 class Form extends React.Component {
   render() {
-    const { title, content, pageIndex } = this.props;
+    const { title, content, pageIndex, lastPage } = this.props;
 
     let prevBtn = null;
     if (pageIndex > 0) {
@@ -16,7 +16,7 @@ class Form extends React.Component {
         {content}
         <div className="buttons">
           {prevBtn}
-          <button className="primary next-btn">Next</button>
+          <button className="primary">{lastPage ? 'Finish' : 'Next'}</button>
         </div>
       </form>
     );
