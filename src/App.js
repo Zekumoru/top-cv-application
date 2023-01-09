@@ -41,10 +41,38 @@ const pages = [
       </div>
     ),
   },
+  {
+    title: 'Work Experience',
+    content: (
+      <div className="content">
+        <LabeledInput id="company-name" label="Company Name" type="text" />
+        <LabeledInput id="position-title" label="Position Title" type="text" />
+        <LabeledInput id="main-task" label="Main Tasks" type="text" />
+        <button>Add Task</button>
+        <ListContainer />
+        <LabeledInput
+          id="from-year"
+          label="From"
+          type="dropdown"
+          rangeFrom={1920}
+          rangeTo={new Date().getFullYear()}
+        />
+        <LabeledInput
+          id="to-year"
+          label="To"
+          type="dropdown"
+          rangeFrom={1920}
+          rangeTo={new Date().getFullYear()}
+        />
+        <button>Add Work Experience</button>
+        <ListContainer />
+      </div>
+    ),
+  },
 ];
 
 class App extends React.Component {
-  currentPageIndex = 1;
+  currentPageIndex = 2;
 
   render() {
     const { title, content } = pages[this.currentPageIndex];
