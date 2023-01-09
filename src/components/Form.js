@@ -8,7 +8,7 @@ class Form extends React.Component {
         <h1 className="title">{this.props.title}</h1>
         <div className="Form-content">{this.props.children}</div>
         <div className="buttons">
-          <button className="next-btn">Next</button>
+          <button className="primary next-btn">Next</button>
         </div>
       </form>
     );
