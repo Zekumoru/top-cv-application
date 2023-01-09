@@ -5,13 +5,13 @@
     margin-bottom: 16px;
   }
 
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
   .buttons {
     margin-top: 16px;
   }
-}
-
-.Form-content {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
 }

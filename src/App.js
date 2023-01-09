@@ -6,60 +6,37 @@ import LabeledInput from './components/LabeledInput';
 const pages = [
   {
     title: 'Personal Details',
-    content: [
-      <LabeledInput
-        id="first-name"
-        key="first-name"
-        label="First Name"
-        type="text"
-      />,
-      <LabeledInput
-        id="last-name"
-        key="last-name"
-        label="Last Name"
-        type="text"
-      />,
-      <LabeledInput id="email" key="email" label="Email" type="email" />,
-      <LabeledInput
-        id="phone-number"
-        key="phone-number"
-        label="Phone Number"
-        type="tel"
-      />,
-    ],
+    content: (
+      <div className="content">
+        <LabeledInput id="first-name" label="First Name" type="text" />
+        <LabeledInput id="last-name" label="Last Name" type="text" />
+        <LabeledInput id="email" label="Email" type="email" />
+        <LabeledInput id="phone-number" label="Phone Number" type="tel" />
+      </div>
+    ),
   },
   {
     title: 'Education',
-    content: [
-      <LabeledInput
-        id="title-of-study"
-        key="title-of-study"
-        label="Title of Study"
-        type="text"
-      />,
-      <LabeledInput
-        id="school-name"
-        key="school-name"
-        label="School Name"
-        type="text"
-      />,
-      <LabeledInput
-        id="from-year"
-        key="from-year"
-        label="From"
-        type="dropdown"
-        rangeFrom={1920}
-        rangeTo={new Date().getFullYear()}
-      />,
-      <LabeledInput
-        id="to-year"
-        key="to-year"
-        label="To"
-        type="dropdown"
-        rangeFrom={1920}
-        rangeTo={new Date().getFullYear()}
-      />,
-    ],
+    content: (
+      <div className="content">
+        <LabeledInput id="title-of-study" label="Title of Study" type="text" />
+        <LabeledInput id="school-name" label="School Name" type="text" />
+        <LabeledInput
+          id="from-year"
+          label="From"
+          type="dropdown"
+          rangeFrom={1920}
+          rangeTo={new Date().getFullYear()}
+        />
+        <LabeledInput
+          id="to-year"
+          label="To"
+          type="dropdown"
+          rangeFrom={1920}
+          rangeTo={new Date().getFullYear()}
+        />
+      </div>
+    ),
   },
 ];
 
@@ -72,7 +49,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <TopNavBar />
-        <Form title={title}>{content}</Form>
+        <Form title={title} content={content} />
       </div>
     );
   }
