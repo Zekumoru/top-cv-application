@@ -3,11 +3,16 @@ import '../styles/Form.scss';
 
 class Form extends React.Component {
   render() {
-    const { title, content, pageIndex, lastPage } = this.props;
+    const { title, content, pageIndex, lastPage, onPreviousPage, onNextPage } =
+      this.props;
 
     let prevBtn = null;
     if (pageIndex > 0) {
-      prevBtn = <button className="prev-btn">Prev</button>;
+      prevBtn = (
+        <button className="prev-btn" onClick={onPreviousPage}>
+          Prev
+        </button>
+      );
     }
 
     return (
@@ -16,7 +21,9 @@ class Form extends React.Component {
         {content}
         <div className="buttons">
           {prevBtn}
-          <button className="primary">{lastPage ? 'Finish' : 'Next'}</button>
+          <button className="primary" onClick={onNextPage}>
+            {lastPage ? 'Finish' : 'Next'}
+          </button>
         </div>
       </form>
     );

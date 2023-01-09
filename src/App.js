@@ -72,10 +72,42 @@ const pages = [
 ];
 
 class App extends React.Component {
-  currentPageIndex = 2;
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentPageIndex: 0,
+    };
+  }
+
+  previousPage = (e) => {
+    this.setState((state) => {
+      const pageIndex = state.currentPageIndex - 1;
+      if (pageIndex < 0) return;
+
+      return {
+        currentPageIndex: pageIndex,
+      };
+    });
+
+    e.preventDefault();
+  };
+
+  nextPage = (e) => {
+    this.setState((state) => {
+      const pageIndex = state.currentPageIndex + 1;
+      if (pageIndex >= pages.length) return;
+
+      return {
+        currentPageIndex: pageIndex,
+      };
+    });
+
+    e.preventDefault();
+  };
 
   render() {
-    const { title, content } = pages[this.currentPageIndex];
+    const { currentPageIndex } = this.state;
+    const { title, content } = pages[currentPageIndex];
 
     return (
       <div className="App">
@@ -83,8 +115,10 @@ class App extends React.Component {
         <Form
           title={title}
           content={content}
-          pageIndex={this.currentPageIndex}
-          lastPage={this.currentPageIndex === pages.length - 1}
+          pageIndex={currentPageIndex}
+          lastPage={currentPageIndex === pages.length - 1}
+          onPreviousPage={this.previousPage}
+          onNextPage={this.nextPage}
         />
       </div>
     );
