@@ -3,11 +3,19 @@ import '../styles/Form.scss';
 
 class Form extends React.Component {
   render() {
+    const { title, content, pageIndex } = this.props;
+
+    let prevBtn = null;
+    if (pageIndex > 0) {
+      prevBtn = <button className="prev-btn">Prev</button>;
+    }
+
     return (
       <form className="Form">
-        <h1 className="title">{this.props.title}</h1>
-        {this.props.content}
+        <h1 className="title">{title}</h1>
+        {content}
         <div className="buttons">
+          {prevBtn}
           <button className="primary next-btn">Next</button>
         </div>
       </form>

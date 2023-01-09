@@ -49,7 +49,11 @@ class App extends React.Component {
     return (
       <div className="App">
         <TopNavBar />
-        <Form title={title} content={content} />
+        <Form
+          title={title}
+          content={content}
+          pageIndex={this.currentPageIndex}
+        />
       </div>
     );
   }
