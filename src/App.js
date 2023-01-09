@@ -67,12 +67,12 @@ class App extends React.Component {
   currentPageIndex = 1;
 
   render() {
-    const { content } = pages[this.currentPageIndex];
+    const { title, content } = pages[this.currentPageIndex];
 
     return (
       <div className="App">
         <TopNavBar />
-        <Form title="Personal Details">{content}</Form>
+        <Form title={title}>{content}</Form>
       </div>
     );
   }
