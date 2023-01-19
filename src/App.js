@@ -8,6 +8,8 @@ import CamelCaseConverter from './utils/CamelCaseConverter';
 class App extends React.Component {
   constructor(props) {
     super(props);
+    const currentYear = new Date().getFullYear();
+
     this.state = {
       currentPageIndex: 0,
       cv: {
@@ -16,6 +18,22 @@ class App extends React.Component {
           lastName: '',
           email: '',
           phoneNumber: '',
+        },
+        education: {
+          titleOfStudy: '',
+          schoolName: '',
+          fromYear: currentYear,
+          toYear: currentYear,
+          list: [],
+        },
+        workExperience: {
+          companyName: '',
+          positionTitle: '',
+          mainTask: '',
+          mainTasks: [],
+          fromYear: currentYear,
+          toYear: currentYear,
+          list: [],
         },
       },
     };
@@ -27,13 +45,11 @@ class App extends React.Component {
       const newState = {
         ...prevState,
       };
-
       const page = CamelCaseConverter.fromTitleCase(currentPage.title);
       newState.cv[page] = {
         ...newState.cv[page],
         ...data,
       };
-
       return newState;
     });
   };
@@ -109,14 +125,24 @@ class App extends React.Component {
               id="title-of-study"
               label="Title of Study"
               type="text"
+              onChange={this.onChange}
+              value={this.state.cv.education.titleOfStudy}
             />
-            <LabeledInput id="school-name" label="School Name" type="text" />
+            <LabeledInput
+              id="school-name"
+              label="School Name"
+              type="text"
+              onChange={this.onChange}
+              value={this.state.cv.education.schoolName}
+            />
             <LabeledInput
               id="from-year"
               label="From"
               type="dropdown"
               rangeFrom={1920}
               rangeTo={new Date().getFullYear()}
+              onChange={this.onChange}
+              value={this.state.cv.education.fromYear}
             />
             <LabeledInput
               id="to-year"
@@ -124,6 +150,8 @@ class App extends React.Component {
               type="dropdown"
               rangeFrom={1920}
               rangeTo={new Date().getFullYear()}
+              onChange={this.onChange}
+              value={this.state.cv.education.toYear}
             />
             <button>Add</button>
             <ListContainer />
@@ -134,13 +162,27 @@ class App extends React.Component {
         title: 'Work Experience',
         content: (
           <div className="content">
-            <LabeledInput id="company-name" label="Company Name" type="text" />
+            <LabeledInput
+              id="company-name"
+              label="Company Name"
+              type="text"
+              onChange={this.onChange}
+              value={this.state.cv.workExperience.companyName}
+            />
             <LabeledInput
               id="position-title"
               label="Position Title"
               type="text"
+              onChange={this.onChange}
+              value={this.state.cv.workExperience.positionTitle}
             />
-            <LabeledInput id="main-task" label="Main Tasks" type="text" />
+            <LabeledInput
+              id="main-task"
+              label="Main Tasks"
+              type="text"
+              onChange={this.onChange}
+              value={this.state.cv.workExperience.mainTask}
+            />
             <button>Add Task</button>
             <ListContainer />
             <LabeledInput
@@ -149,6 +191,8 @@ class App extends React.Component {
               type="dropdown"
               rangeFrom={1920}
               rangeTo={new Date().getFullYear()}
+              onChange={this.onChange}
+              value={this.state.cv.workExperience.fromYear}
             />
             <LabeledInput
               id="to-year"
@@ -156,6 +200,8 @@ class App extends React.Component {
               type="dropdown"
               rangeFrom={1920}
               rangeTo={new Date().getFullYear()}
+              onChange={this.onChange}
+              value={this.state.cv.workExperience.toYear}
             />
             <button>Add Work Experience</button>
             <ListContainer />
