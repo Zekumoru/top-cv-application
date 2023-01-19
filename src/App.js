@@ -3,7 +3,6 @@ import Form from './components/Form';
 import TopNavBar from './components/TopNavBar';
 import LabeledInput from './components/LabeledInput';
 import ListContainer from './components/ListContainer';
-import CamelCaseConverter from './utils/CamelCaseConverter';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,46 +11,25 @@ class App extends React.Component {
 
     this.state = {
       currentPageIndex: 0,
-      cv: {
-        personalDetails: {
-          firstName: '',
-          lastName: '',
-          email: '',
-          phoneNumber: '',
-        },
-        education: {
-          titleOfStudy: '',
-          schoolName: '',
-          fromYear: currentYear,
-          toYear: currentYear,
-          list: [],
-        },
-        workExperience: {
-          companyName: '',
-          positionTitle: '',
-          mainTask: '',
-          mainTasks: [],
-          fromYear: currentYear,
-          toYear: currentYear,
-          list: [],
-        },
-      },
+      firstName: '',
+      lastName: '',
+      email: '',
+      phoneNumber: '',
+      titleOfStudy: '',
+      schoolName: '',
+      companyName: '',
+      positionTitle: '',
+      mainTask: '',
+      fromYear: currentYear,
+      toYear: currentYear,
+      educations: [],
+      mainTasks: [],
+      workExperiences: [],
     };
   }
 
   onChange = (data) => {
-    this.setState((prevState) => {
-      const currentPage = this.pages[prevState.currentPageIndex];
-      const newState = {
-        ...prevState,
-      };
-      const page = CamelCaseConverter.fromTitleCase(currentPage.title);
-      newState.cv[page] = {
-        ...newState.cv[page],
-        ...data,
-      };
-      return newState;
-    });
+    this.setState({ ...data });
   };
 
   previousPage = (e) => {
@@ -91,28 +69,28 @@ class App extends React.Component {
               label="First Name"
               type="text"
               onChange={this.onChange}
-              value={this.state.cv.personalDetails.firstName}
+              value={this.state.firstName}
             />
             <LabeledInput
               id="last-name"
               label="Last Name"
               type="text"
               onChange={this.onChange}
-              value={this.state.cv.personalDetails.lastName}
+              value={this.state.lastName}
             />
             <LabeledInput
               id="email"
               label="Email"
               type="email"
               onChange={this.onChange}
-              value={this.state.cv.personalDetails.email}
+              value={this.state.email}
             />
             <LabeledInput
               id="phone-number"
               label="Phone Number"
               type="tel"
               onChange={this.onChange}
-              value={this.state.cv.personalDetails.phoneNumber}
+              value={this.state.phoneNumber}
             />
           </div>
         ),
@@ -126,14 +104,14 @@ class App extends React.Component {
               label="Title of Study"
               type="text"
               onChange={this.onChange}
-              value={this.state.cv.education.titleOfStudy}
+              value={this.state.titleOfStudy}
             />
             <LabeledInput
               id="school-name"
               label="School Name"
               type="text"
               onChange={this.onChange}
-              value={this.state.cv.education.schoolName}
+              value={this.state.schoolName}
             />
             <LabeledInput
               id="from-year"
@@ -142,7 +120,7 @@ class App extends React.Component {
               rangeFrom={1920}
               rangeTo={new Date().getFullYear()}
               onChange={this.onChange}
-              value={this.state.cv.education.fromYear}
+              value={this.state.fromYear}
             />
             <LabeledInput
               id="to-year"
@@ -151,7 +129,7 @@ class App extends React.Component {
               rangeFrom={1920}
               rangeTo={new Date().getFullYear()}
               onChange={this.onChange}
-              value={this.state.cv.education.toYear}
+              value={this.state.toYear}
             />
             <button>Add</button>
             <ListContainer />
@@ -167,21 +145,21 @@ class App extends React.Component {
               label="Company Name"
               type="text"
               onChange={this.onChange}
-              value={this.state.cv.workExperience.companyName}
+              value={this.state.companyName}
             />
             <LabeledInput
               id="position-title"
               label="Position Title"
               type="text"
               onChange={this.onChange}
-              value={this.state.cv.workExperience.positionTitle}
+              value={this.state.positionTitle}
             />
             <LabeledInput
               id="main-task"
               label="Main Tasks"
               type="text"
               onChange={this.onChange}
-              value={this.state.cv.workExperience.mainTask}
+              value={this.state.mainTask}
             />
             <button>Add Task</button>
             <ListContainer />
@@ -192,7 +170,7 @@ class App extends React.Component {
               rangeFrom={1920}
               rangeTo={new Date().getFullYear()}
               onChange={this.onChange}
-              value={this.state.cv.workExperience.fromYear}
+              value={this.state.fromYear}
             />
             <LabeledInput
               id="to-year"
@@ -201,7 +179,7 @@ class App extends React.Component {
               rangeFrom={1920}
               rangeTo={new Date().getFullYear()}
               onChange={this.onChange}
-              value={this.state.cv.workExperience.toYear}
+              value={this.state.toYear}
             />
             <button>Add Work Experience</button>
             <ListContainer />
