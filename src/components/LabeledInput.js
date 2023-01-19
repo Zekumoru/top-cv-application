@@ -2,20 +2,9 @@ import React from 'react';
 import '../styles/LabeledInput.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import CamelCaseConverter from '../utils/CamelCaseConverter';
 
 class LabeledInput extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      value: '',
-    };
-
-    if (this.props.type === 'dropdown') {
-      this.state.value = this.props.rangeTo;
-    }
-  }
-
   onKeyDown = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -23,9 +12,10 @@ class LabeledInput extends React.Component {
   };
 
   onChange = (e) => {
-    this.setState({
-      value: e.target.value,
-    });
+    const data = {};
+    data[CamelCaseConverter.fromHyphenCase(this.props.id)] = e.target.value;
+
+    this.props.onChange(data);
   };
 
   render() {
@@ -50,7 +40,7 @@ class LabeledInput extends React.Component {
             name={id}
             id={id}
             onChange={this.onChange}
-            value={this.state.value}
+            value={this.props.value}
           >
             {options}
           </select>
@@ -62,7 +52,7 @@ class LabeledInput extends React.Component {
         <input
           type={type}
           id={id}
-          value={this.state.value}
+          value={this.props.value}
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}
         />
