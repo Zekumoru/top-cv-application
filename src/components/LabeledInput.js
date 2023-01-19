@@ -4,6 +4,30 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 class LabeledInput extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: '',
+    };
+
+    if (this.props.type === 'dropdown') {
+      this.state.value = this.props.rangeTo;
+    }
+  }
+
+  onKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
+  };
+
+  onChange = (e) => {
+    this.setState({
+      value: e.target.value,
+    });
+  };
+
   render() {
     const { id, label, type } = this.props;
     let input;
@@ -22,14 +46,27 @@ class LabeledInput extends React.Component {
 
       input = (
         <div className="select-wrapper">
-          <select name={id} id={id}>
+          <select
+            name={id}
+            id={id}
+            onChange={this.onChange}
+            value={this.state.value}
+          >
             {options}
           </select>
           <FontAwesomeIcon icon={faChevronDown} className="chevron" />
         </div>
       );
     } else {
-      input = <input type={type} id={id} />;
+      input = (
+        <input
+          type={type}
+          id={id}
+          value={this.state.value}
+          onChange={this.onChange}
+          onKeyDown={this.onKeyDown}
+        />
+      );
     }
 
     return (
