@@ -10,7 +10,7 @@ class EducationListItem extends React.Component {
         <p className="title-of-study">{titleOfStudy}</p>
         <p className="school-name">{schoolName}</p>
         <p className="duration">
-          {fromYear} - {toYear}
+          {toYear} - {fromYear}
         </p>
       </li>
     );
