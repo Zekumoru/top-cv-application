@@ -97,6 +97,36 @@ class App extends React.Component {
     e.preventDefault();
   };
 
+  addWorkExperience = (e) => {
+    this.setState(
+      {
+        workExperiences: [
+          ...this.state.workExperiences,
+          {
+            id: nanoid(),
+            companyName: this.state.companyName,
+            positionTitle: this.state.positionTitle,
+            mainTasks: this.state.mainTasks,
+            fromYear: Number(this.state.fromYear),
+            toYear: Number(this.state.toYear),
+          },
+        ],
+      },
+      () =>
+        this.setState(
+          {
+            companyName: '',
+            positionTitle: '',
+            mainTasks: '',
+            fromYear: currentYear,
+            toYear: currentYear,
+          },
+          () => console.log(this.state)
+        )
+    );
+    e.preventDefault();
+  };
+
   render() {
     this.pages = [
       {
@@ -221,7 +251,9 @@ class App extends React.Component {
               onChange={this.onChange}
               value={this.state.toYear}
             />
-            <button>Add Work Experience</button>
+            <button onClick={this.addWorkExperience}>
+              Add Work Experience
+            </button>
             <ListContainer />
           </div>
         ),
