@@ -3,14 +3,17 @@ import Form from './components/Form';
 import TopNavBar from './components/TopNavBar';
 import LabeledInput from './components/LabeledInput';
 import ListContainer from './components/ListContainer';
+import { nanoid } from 'nanoid';
+
+const OVERRIDE_CURRENT_PAGE = 1;
+const currentYear = new Date().getFullYear();
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    const currentYear = new Date().getFullYear();
 
     this.state = {
-      currentPageIndex: 0,
+      currentPageIndex: OVERRIDE_CURRENT_PAGE,
       firstName: '',
       lastName: '',
       email: '',
@@ -55,6 +58,32 @@ class App extends React.Component {
       };
     });
 
+    e.preventDefault();
+  };
+
+  addEducation = (e) => {
+    this.setState(
+      {
+        educations: [
+          ...this.state.educations,
+          {
+            id: nanoid(),
+            titleOfStudy: this.state.titleOfStudy,
+            schoolName: this.state.schoolName,
+            fromYear: Number(this.state.fromYear),
+            toYear: Number(this.state.toYear),
+          },
+        ],
+      },
+      () => {
+        this.setState({
+          titleOfStudy: '',
+          schoolName: '',
+          fromYear: currentYear,
+          toYear: currentYear,
+        });
+      }
+    );
     e.preventDefault();
   };
 
@@ -131,7 +160,7 @@ class App extends React.Component {
               onChange={this.onChange}
               value={this.state.toYear}
             />
-            <button>Add</button>
+            <button onClick={this.addEducation}>Add</button>
             <ListContainer />
           </div>
         ),
