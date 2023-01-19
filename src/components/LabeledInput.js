@@ -7,6 +7,11 @@ import CamelCaseConverter from '../utils/CamelCaseConverter';
 class LabeledInput extends React.Component {
   onKeyDown = (e) => {
     if (e.key === 'Enter') {
+      if (typeof this.props.onEnter === 'function') {
+        this.props.onEnter(e);
+        return;
+      }
+
       e.preventDefault();
     }
   };

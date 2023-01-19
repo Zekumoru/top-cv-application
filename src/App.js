@@ -198,6 +198,7 @@ class App extends React.Component {
               label="Main Tasks"
               type="text"
               onChange={this.onChange}
+              onEnter={this.addTask}
               value={this.state.mainTask}
             />
             <button onClick={this.addTask}>Add Task</button>
