@@ -26,8 +26,21 @@ class App extends React.Component {
       fromYear: currentYear,
       toYear: currentYear,
       educations: [],
-      mainTasks: [],
-      workExperiences: [],
+      mainTasks: [
+        { id: nanoid(), task: 'Task A' },
+        { id: nanoid(), task: 'Task B' },
+        { id: nanoid(), task: 'Task C' },
+      ],
+      workExperiences: [
+        {
+          id: nanoid(),
+          companyName: 'Company Name',
+          positionTitle: 'Position Title',
+          mainTasks: ['Task A', 'Task B', 'Task C'],
+          fromYear: 2019,
+          toYear: 2022,
+        },
+      ],
     };
   }
 
@@ -90,7 +103,13 @@ class App extends React.Component {
   addTask = (e) => {
     this.setState(
       {
-        mainTasks: [...this.state.mainTasks, this.state.mainTask],
+        mainTasks: [
+          ...this.state.mainTasks,
+          {
+            id: nanoid(),
+            task: this.state.mainTask,
+          },
+        ],
       },
       () => this.setState({ mainTask: '' })
     );
@@ -113,16 +132,13 @@ class App extends React.Component {
         ],
       },
       () =>
-        this.setState(
-          {
-            companyName: '',
-            positionTitle: '',
-            mainTasks: '',
-            fromYear: currentYear,
-            toYear: currentYear,
-          },
-          () => console.log(this.state)
-        )
+        this.setState({
+          companyName: '',
+          positionTitle: '',
+          mainTasks: [],
+          fromYear: currentYear,
+          toYear: currentYear,
+        })
     );
     e.preventDefault();
   };
@@ -201,7 +217,7 @@ class App extends React.Component {
               value={this.state.toYear}
             />
             <button onClick={this.addEducation}>Add</button>
-            <ListContainer list={this.state.educations} />
+            <ListContainer list={this.state.educations} type="education" />
           </div>
         ),
       },
@@ -232,7 +248,7 @@ class App extends React.Component {
               value={this.state.mainTask}
             />
             <button onClick={this.addTask}>Add Task</button>
-            <ListContainer />
+            <ListContainer list={this.state.mainTasks} type="task" />
             <LabeledInput
               id="from-year"
               label="From"
@@ -254,7 +270,10 @@ class App extends React.Component {
             <button onClick={this.addWorkExperience}>
               Add Work Experience
             </button>
-            <ListContainer />
+            <ListContainer
+              list={this.state.workExperiences}
+              type="work-experience"
+            />
           </div>
         ),
       },

@@ -1,14 +1,20 @@
 import React from 'react';
 import '../styles/ListContainer.scss';
 import EducationListItem from './EducationListItem';
+import TaskListItem from './TaskListItem';
 
 class ListContainer extends React.Component {
   render() {
-    const { list } = this.props;
+    const { type, list } = this.props;
     const items = [];
 
     list.forEach((item) => {
-      items.push(<EducationListItem key={item.id} education={item} />);
+      if (type === 'education') {
+        items.push(<EducationListItem key={item.id} education={item} />);
+      } else if (type === 'task') {
+        items.push(<TaskListItem key={item.id} task={item.task} />);
+      } else if (type === 'work-experience') {
+      }
     });
 
     return (
