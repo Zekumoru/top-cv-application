@@ -2,6 +2,12 @@
   height: 240px;
   background-color: hsl(0, 0%, 95%);
   border-radius: 4px;
+  padding: 8px 6px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
 
   .empty-text {
     display: none;

@@ -161,7 +161,7 @@ class App extends React.Component {
               value={this.state.toYear}
             />
             <button onClick={this.addEducation}>Add</button>
-            <ListContainer />
+            <ListContainer list={this.state.educations} />
           </div>
         ),
       },
