@@ -5,7 +5,7 @@ import LabeledInput from './components/LabeledInput';
 import ListContainer from './components/ListContainer';
 import { nanoid } from 'nanoid';
 
-const OVERRIDE_CURRENT_PAGE = 1;
+const OVERRIDE_CURRENT_PAGE = 2;
 const currentYear = new Date().getFullYear();
 
 class App extends React.Component {
@@ -83,6 +83,16 @@ class App extends React.Component {
           toYear: currentYear,
         });
       }
+    );
+    e.preventDefault();
+  };
+
+  addTask = (e) => {
+    this.setState(
+      {
+        mainTasks: [...this.state.mainTasks, this.state.mainTask],
+      },
+      () => this.setState({ mainTask: '' })
     );
     e.preventDefault();
   };
@@ -190,7 +200,7 @@ class App extends React.Component {
               onChange={this.onChange}
               value={this.state.mainTask}
             />
-            <button>Add Task</button>
+            <button onClick={this.addTask}>Add Task</button>
             <ListContainer />
             <LabeledInput
               id="from-year"
