@@ -5,7 +5,6 @@ import LabeledInput from './components/LabeledInput';
 import ListContainer from './components/ListContainer';
 import { nanoid } from 'nanoid';
 
-const OVERRIDE_CURRENT_PAGE = 2;
 const currentYear = new Date().getFullYear();
 
 class App extends React.Component {
@@ -13,7 +12,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      currentPageIndex: OVERRIDE_CURRENT_PAGE,
+      currentPageIndex: 0,
       firstName: '',
       lastName: '',
       email: '',
