@@ -26,21 +26,8 @@ class App extends React.Component {
       fromYear: currentYear,
       toYear: currentYear,
       educations: [],
-      mainTasks: [
-        { id: nanoid(), task: 'Task A' },
-        { id: nanoid(), task: 'Task B' },
-        { id: nanoid(), task: 'Task C' },
-      ],
-      workExperiences: [
-        {
-          id: nanoid(),
-          companyName: 'Company Name',
-          positionTitle: 'Position Title',
-          mainTasks: ['Task A', 'Task B', 'Task C'],
-          fromYear: 2019,
-          toYear: 2022,
-        },
-      ],
+      mainTasks: [],
+      workExperiences: [],
     };
   }
 
