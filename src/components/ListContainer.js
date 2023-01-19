@@ -6,7 +6,7 @@ import WorkExperienceListItem from './WorkExperienceListItem';
 
 class ListContainer extends React.Component {
   render() {
-    const { type, list } = this.props;
+    const { type, list, emptyText } = this.props;
     const items = [];
 
     list.forEach((item) => {
@@ -23,7 +23,9 @@ class ListContainer extends React.Component {
 
     return (
       <ul className="ListContainer">
-        {list.length !== 0 || <div className="empty-text">List is empty.</div>}
+        {list.length !== 0 || (
+          <div className="empty-text">{emptyText ?? 'List is empty.'}</div>
+        )}
         {items}
       </ul>
     );

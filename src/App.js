@@ -203,7 +203,11 @@ class App extends React.Component {
               value={this.state.toYear}
             />
             <button onClick={this.addEducation}>Add</button>
-            <ListContainer list={this.state.educations} type="education" />
+            <ListContainer
+              list={this.state.educations}
+              type="education"
+              emptyText="No education added yet."
+            />
           </div>
         ),
       },
@@ -234,7 +238,11 @@ class App extends React.Component {
               value={this.state.mainTask}
             />
             <button onClick={this.addTask}>Add Task</button>
-            <ListContainer list={this.state.mainTasks} type="task" />
+            <ListContainer
+              list={this.state.mainTasks}
+              type="task"
+              emptyText="No tasks added yet."
+            />
             <LabeledInput
               id="from-year"
               label="From"
@@ -259,6 +267,7 @@ class App extends React.Component {
             <ListContainer
               list={this.state.workExperiences}
               type="work-experience"
+              emptyText="No experiences added yet."
             />
           </div>
         ),
