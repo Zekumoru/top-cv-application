@@ -4,22 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import '../styles/CV.scss';
 
-const MM_PER_16PX = 127 / 30;
-
 class CV extends React.Component {
-  constructor(props) {
-    super(props);
-    this.cv = React.createRef();
-  }
-
-  updateRemSize = () => {
-    const { width } = this.cv.current.getBoundingClientRect();
-    const pixelPerMM = width / 210;
-    const currentRemSize = MM_PER_16PX * pixelPerMM;
-
-    this.cv.current.style.fontSize = `${currentRemSize}px`;
-  };
-
   getEducationElements(educations) {
     if (educations.length === 0) {
       const samples = [];
@@ -109,7 +94,7 @@ class CV extends React.Component {
     );
 
     return (
-      <div className="cv" ref={this.cv}>
+      <div className="cv" ref={this.props.refProp}>
         <section className="personal-details">
           <h1>
             {data.firstName || 'FirstName'} {data.lastName || 'LastName'}
@@ -137,15 +122,8 @@ class CV extends React.Component {
       </div>
     );
   }
-
-  componentDidMount() {
-    this.updateRemSize();
-    window.addEventListener('resize', this.updateRemSize);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateRemSize);
-  }
 }
 
-export default CV;
+export default React.forwardRef((props, ref) => (
+  <CV refProp={ref} {...props} />
+));
