@@ -71,4 +71,9 @@
   .bullet {
     margin-right: 0.4em;
   }
+
+  @media print {
+    width: 793.7px;
+    box-shadow: none;
+  }
 }

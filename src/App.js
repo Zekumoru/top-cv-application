@@ -6,6 +6,7 @@ import ListContainer from './components/ListContainer';
 import { nanoid } from 'nanoid';
 import './styles/App.scss';
 import CVViewer from './components/CVViewer';
+import CV from './components/CV';
 
 const currentYear = new Date().getFullYear();
 
@@ -294,6 +295,7 @@ class App extends React.Component {
           <h2>Preview</h2>
           <CVViewer data={this.state} />
         </div>
+        <CV data={this.state} />
       </div>
     );
   }

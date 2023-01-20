@@ -94,7 +94,7 @@ class CV extends React.Component {
     );
 
     return (
-      <div className="cv" ref={this.props.refProp}>
+      <div className="cv printable" ref={this.props.refProp}>
         <section className="personal-details">
           <h1>
             {data.firstName || 'FirstName'} {data.lastName || 'LastName'}

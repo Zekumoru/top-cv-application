@@ -6,4 +6,18 @@
       margin-bottom: 16px;
     }
   }
+
+  > .printable {
+    display: none;
+  }
+
+  @media print {
+    > *:not(.printable) {
+      display: none;
+    }
+
+    .printable {
+      display: block;
+    }
+  }
 }
