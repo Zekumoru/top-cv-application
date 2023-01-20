@@ -4,20 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import CamelCaseConverter from '../utils/CamelCaseConverter';
 
-const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-const PHONE_NUMBER_REGEX =
-  /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
-
 class LabeledInput extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      invalid: false,
-      aggressive: false,
-    };
-  }
-
   onKeyDown = (e) => {
     if (e.key === 'Enter') {
       if (typeof this.props.onEnter === 'function') {
@@ -30,33 +17,27 @@ class LabeledInput extends React.Component {
   };
 
   onChange = (e) => {
+    const key = CamelCaseConverter.fromHyphenCase(this.props.id);
     const data = {};
-    data[CamelCaseConverter.fromHyphenCase(this.props.id)] = e.target.value;
 
-    this.props.onChange(data);
-    this.validate(e.target.value);
+    data[key] = e.target.value;
+    this.props.onChange({
+      type: this.props.type,
+      value: e.target.value,
+      key,
+    });
   };
 
   onBlur = (e) => {
-    this.setState({ aggressive: true }, () => this.validate(e.target.value));
+    this.props.onBlur({
+      element: e.target,
+      key: CamelCaseConverter.fromHyphenCase(this.props.id),
+    });
   };
 
-  validate(input) {
-    if (!this.state.aggressive) return;
-
-    let invalid = false;
-    if (this.props.type === 'email') {
-      invalid = !EMAIL_REGEX.test(input);
-    } else if (this.props.type === 'tel') {
-      invalid = !PHONE_NUMBER_REGEX.test(input);
-    }
-
-    this.setState({ invalid });
-  }
-
   render() {
-    const { id, label, type } = this.props;
-    const { invalid } = this.state;
+    const { id, label, type, valid, aggressiveValidation, errorText } =
+      this.props;
     let input;
 
     if (type === 'dropdown') {
@@ -78,7 +59,6 @@ class LabeledInput extends React.Component {
             id={id}
             onChange={this.onChange}
             value={this.props.value}
-            className={invalid ? 'error' : ''}
           >
             {options}
           </select>
@@ -94,16 +74,20 @@ class LabeledInput extends React.Component {
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}
           onBlur={this.onBlur}
-          className={invalid ? 'error' : ''}
+          className={!valid && aggressiveValidation ? 'error' : ''}
         />
       );
     }
 
+    const errorMessage =
+      !valid && aggressiveValidation ? (
+        <p className="error-message">{errorText || 'Invalid input!'}</p>
+      ) : null;
     return (
       <div className="LabeledInput">
         <label htmlFor={id}>{label}</label>
         {input}
-        {!invalid || <p className="error-message">Invalid input</p>}
+        {errorMessage}
       </div>
     );
   }

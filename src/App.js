@@ -8,6 +8,10 @@ import './styles/App.scss';
 import CVViewer from './components/CVViewer';
 import CV from './components/CV';
 
+const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+const PHONE_NUMBER_REGEX =
+  /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+
 const currentYear = new Date().getFullYear();
 
 class App extends React.Component {
@@ -18,9 +22,17 @@ class App extends React.Component {
       currentPageIndex: 0,
       finished: false,
       firstName: '',
+      validFirstName: false,
+      aggressiveFirstName: false,
       lastName: '',
+      validLastName: false,
+      aggressiveLastName: false,
       email: '',
+      validEmail: false,
+      aggressiveEmail: false,
       phoneNumber: '',
+      validPhoneNumber: false,
+      aggressivePhoneNumber: false,
       titleOfStudy: '',
       schoolName: '',
       companyName: '',
@@ -34,13 +46,47 @@ class App extends React.Component {
     };
   }
 
-  onChange = (data) => {
-    if (data.fromYear && data.fromYear > this.state.toYear) {
-      this.setState({ toYear: data.fromYear });
-    }
+  onChange = ({ type, value, key }) => {
+    const capitalizedKey = key.charAt(0).toUpperCase() + key.substring(1);
+    this.setState((state) => {
+      const obj = {};
 
-    this.setState({ ...data });
+      if (key === 'fromYear' && value > state.toYear) {
+        obj.toYear = value;
+      }
+
+      if (state.hasOwnProperty(`valid${capitalizedKey}`)) {
+        obj[`valid${capitalizedKey}`] = this.validate(value, type);
+      }
+
+      return {
+        [key]: value,
+        ...obj,
+      };
+    });
   };
+
+  onBlur = ({ key }) => {
+    const capitalizedKey = key.charAt(0).toUpperCase() + key.substring(1);
+    this.setState((state) => {
+      if (state.hasOwnProperty(`aggressive${capitalizedKey}`)) {
+        return {
+          [`aggressive${capitalizedKey}`]: true,
+        };
+      }
+    });
+  };
+
+  validate(input, type) {
+    if (type === 'text') {
+      return input !== '';
+    } else if (type === 'email') {
+      return EMAIL_REGEX.test(input);
+    } else if (type === 'tel') {
+      return PHONE_NUMBER_REGEX.test(input);
+    }
+    return true;
+  }
 
   scrollToTop = () => {
     window.scrollTo(0, 0);
@@ -68,6 +114,21 @@ class App extends React.Component {
 
   nextPage = (e) => {
     this.setState((state) => {
+      if (
+        state.currentPageIndex === 0 &&
+        (!state.validFirstName ||
+          !state.validLastName ||
+          !state.validEmail ||
+          !state.validPhoneNumber)
+      ) {
+        return {
+          aggressiveFirstName: true,
+          aggressiveLastName: true,
+          aggressiveEmail: true,
+          aggressivePhoneNumber: true,
+        };
+      }
+
       const pageIndex = state.currentPageIndex + 1;
       if (pageIndex >= this.pages.length) {
         return {
@@ -186,28 +247,44 @@ class App extends React.Component {
               label="First Name"
               type="text"
               onChange={this.onChange}
+              onBlur={this.onBlur}
               value={this.state.firstName}
+              valid={this.state.validFirstName}
+              aggressiveValidation={this.state.aggressiveFirstName}
+              errorText="First name cannot be empty!"
             />
             <LabeledInput
               id="last-name"
               label="Last Name"
               type="text"
               onChange={this.onChange}
+              onBlur={this.onBlur}
               value={this.state.lastName}
+              valid={this.state.validLastName}
+              aggressiveValidation={this.state.aggressiveLastName}
+              errorText="Last name cannot be empty!"
             />
             <LabeledInput
               id="email"
               label="Email"
               type="email"
               onChange={this.onChange}
+              onBlur={this.onBlur}
               value={this.state.email}
+              valid={this.state.validEmail}
+              aggressiveValidation={this.state.aggressiveEmail}
+              errorText="Email must be valid!"
             />
             <LabeledInput
               id="phone-number"
               label="Phone Number"
               type="tel"
               onChange={this.onChange}
+              onBlur={this.onBlur}
               value={this.state.phoneNumber}
+              valid={this.state.validPhoneNumber}
+              aggressiveValidation={this.state.aggressivePhoneNumber}
+              errorText="Phone number must be valid!"
             />
           </div>
         ),
