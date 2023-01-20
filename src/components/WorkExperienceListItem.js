@@ -18,8 +18,8 @@ class WorkExperienceListItem extends React.Component {
         <p className="duration">
           {toYear} - {fromYear}
         </p>
-        <p className="main-tasks">Main Tasks</p>
-        <ul>{tasks}</ul>
+        {tasks.length === 0 || <p className="main-tasks">Main Tasks</p>}
+        {tasks.length === 0 || <ul>{tasks}</ul>}
       </li>
     );
   }

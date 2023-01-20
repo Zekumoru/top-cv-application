@@ -83,17 +83,19 @@ class CV extends React.Component {
           <p className="duration">
             {workExperience.fromYear} - {workExperience.toYear}
           </p>
-          <h4>Main Tasks</h4>
-          <ul>
-            {workExperience.mainTasks.map((task) => {
-              return (
-                <li key={task.id}>
-                  <span className="bullet">&gt;</span>
-                  {task.task}
-                </li>
-              );
-            })}
-          </ul>
+          {workExperience.mainTasks.length === 0 || <h4>Main Tasks</h4>}
+          {workExperience.mainTasks.length === 0 || (
+            <ul>
+              {workExperience.mainTasks.map((task) => {
+                return (
+                  <li key={task.id}>
+                    <span className="bullet">&gt;</span>
+                    {task.task}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </li>
       );
     });
