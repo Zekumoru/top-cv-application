@@ -29,6 +29,8 @@ class LabeledInput extends React.Component {
   };
 
   onBlur = (e) => {
+    if (typeof this.props.onBlur !== 'function') return;
+
     this.props.onBlur({
       element: e.target,
       key: CamelCaseConverter.fromHyphenCase(this.props.id),
@@ -36,8 +38,15 @@ class LabeledInput extends React.Component {
   };
 
   render() {
-    const { id, label, type, valid, aggressiveValidation, errorText } =
-      this.props;
+    const {
+      id,
+      label,
+      type,
+      valid,
+      aggressiveValidation,
+      errorText,
+      showError,
+    } = this.props;
     let input;
 
     if (type === 'dropdown') {
@@ -74,13 +83,15 @@ class LabeledInput extends React.Component {
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}
           onBlur={this.onBlur}
-          className={!valid && aggressiveValidation ? 'error' : ''}
+          className={
+            !valid && (showError || aggressiveValidation) ? 'error' : ''
+          }
         />
       );
     }
 
     const errorMessage =
-      !valid && aggressiveValidation ? (
+      (!valid && aggressiveValidation) || showError ? (
         <p className="error-message">{errorText || 'Invalid input!'}</p>
       ) : null;
     return (

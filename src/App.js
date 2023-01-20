@@ -34,10 +34,20 @@ class App extends React.Component {
       validPhoneNumber: false,
       aggressivePhoneNumber: false,
       titleOfStudy: '',
+      validTitleOfStudy: false,
+      showErrorTitleOfStudy: false,
       schoolName: '',
+      validSchoolName: false,
+      showErrorSchoolName: false,
       companyName: '',
+      validCompanyName: false,
+      showErrorCompanyName: false,
       positionTitle: '',
+      validPositionTitle: false,
+      showErrorPositionTitle: false,
       mainTask: '',
+      validMainTask: false,
+      showErrorMainTask: false,
       fromYear: currentYear,
       toYear: currentYear,
       educations: [],
@@ -59,6 +69,10 @@ class App extends React.Component {
         obj[`valid${capitalizedKey}`] = this.validate(value, type);
       }
 
+      if (state.hasOwnProperty(`showError${capitalizedKey}`)) {
+        obj[`showError${capitalizedKey}`] = false;
+      }
+
       return {
         [key]: value,
         ...obj,
@@ -69,6 +83,12 @@ class App extends React.Component {
   onBlur = ({ key }) => {
     const capitalizedKey = key.charAt(0).toUpperCase() + key.substring(1);
     this.setState((state) => {
+      if (state.hasOwnProperty(`showError${capitalizedKey}`)) {
+        return {
+          [`showError${capitalizedKey}`]: false,
+        };
+      }
+
       if (state.hasOwnProperty(`aggressive${capitalizedKey}`)) {
         return {
           [`aggressive${capitalizedKey}`]: true,
@@ -146,19 +166,36 @@ class App extends React.Component {
 
   addEducation = (e) => {
     this.setState(
-      {
-        educations: [
-          ...this.state.educations,
-          {
-            id: nanoid(),
-            titleOfStudy: this.state.titleOfStudy,
-            schoolName: this.state.schoolName,
-            fromYear: Number(this.state.fromYear),
-            toYear: Number(this.state.toYear),
-          },
-        ],
+      (state) => {
+        if (!state.validTitleOfStudy || !state.validSchoolName) {
+          return {
+            showErrorTitleOfStudy: !state.validTitleOfStudy,
+            showErrorSchoolName: !state.validSchoolName,
+          };
+        }
+
+        return {
+          educations: [
+            ...state.educations,
+            {
+              id: nanoid(),
+              titleOfStudy: state.titleOfStudy,
+              schoolName: state.schoolName,
+              fromYear: Number(state.fromYear),
+              toYear: Number(state.toYear),
+            },
+          ],
+          validTitleOfStudy: false,
+          showErrorTitleOfStudy: false,
+          validSchoolName: false,
+          showErrorSchoolName: false,
+        };
       },
       () => {
+        if (this.state.validTitleOfStudy || this.state.validSchoolName) {
+          return;
+        }
+
         this.setState({
           titleOfStudy: '',
           schoolName: '',
@@ -178,14 +215,24 @@ class App extends React.Component {
 
   addTask = (e) => {
     this.setState(
-      {
-        mainTasks: [
-          ...this.state.mainTasks,
-          {
-            id: nanoid(),
-            task: this.state.mainTask,
-          },
-        ],
+      (state) => {
+        if (!state.validMainTask) {
+          return {
+            showErrorMainTask: !state.validMainTask,
+          };
+        }
+
+        return {
+          mainTasks: [
+            ...state.mainTasks,
+            {
+              id: nanoid(),
+              task: state.mainTask,
+            },
+          ],
+          validMainTask: false,
+          showErrorMainTask: false,
+        };
       },
       () => this.setState({ mainTask: '' })
     );
@@ -200,27 +247,43 @@ class App extends React.Component {
 
   addWorkExperience = (e) => {
     this.setState(
-      {
-        workExperiences: [
-          ...this.state.workExperiences,
-          {
-            id: nanoid(),
-            companyName: this.state.companyName,
-            positionTitle: this.state.positionTitle,
-            mainTasks: this.state.mainTasks,
-            fromYear: Number(this.state.fromYear),
-            toYear: Number(this.state.toYear),
-          },
-        ],
+      (state) => {
+        if (!state.validCompanyName || !state.validPositionTitle) {
+          return {
+            showErrorCompanyName: !state.validCompanyName,
+            showErrorPositionTitle: !state.validPositionTitle,
+          };
+        }
+
+        return {
+          workExperiences: [
+            ...state.workExperiences,
+            {
+              id: nanoid(),
+              companyName: state.companyName,
+              positionTitle: state.positionTitle,
+              mainTasks: state.mainTasks,
+              fromYear: Number(state.fromYear),
+              toYear: Number(state.toYear),
+            },
+          ],
+          validCompanyName: false,
+          validPositionTitle: false,
+        };
       },
-      () =>
+      () => {
+        if (this.state.validCompanyName || this.state.validPositionTitle) {
+          return;
+        }
+
         this.setState({
           companyName: '',
           positionTitle: '',
           mainTasks: [],
           fromYear: currentYear,
           toYear: currentYear,
-        })
+        });
+      }
     );
     e.preventDefault();
   };
@@ -298,14 +361,22 @@ class App extends React.Component {
               label="Title of Study"
               type="text"
               onChange={this.onChange}
+              onBlur={this.onBlur}
               value={this.state.titleOfStudy}
+              valid={this.state.validTitleOfStudy}
+              showError={this.state.showErrorTitleOfStudy}
+              errorText="Title of study cannot be empty!"
             />
             <LabeledInput
               id="school-name"
               label="School Name"
               type="text"
               onChange={this.onChange}
+              onBlur={this.onBlur}
               value={this.state.schoolName}
+              valid={this.state.validSchoolName}
+              showError={this.state.showErrorSchoolName}
+              errorText="School name cannot be empty!"
             />
             <LabeledInput
               id="from-year"
@@ -344,14 +415,22 @@ class App extends React.Component {
               label="Company Name"
               type="text"
               onChange={this.onChange}
+              onBlur={this.onBlur}
               value={this.state.companyName}
+              valid={this.state.validCompanyName}
+              showError={this.state.showErrorCompanyName}
+              errorText="Company name must not be empty!"
             />
             <LabeledInput
               id="position-title"
               label="Position Title"
               type="text"
               onChange={this.onChange}
+              onBlur={this.onBlur}
               value={this.state.positionTitle}
+              valid={this.state.validPositionTitle}
+              showError={this.state.showErrorPositionTitle}
+              errorText="Position title must not be empty!"
             />
             <LabeledInput
               id="main-task"
@@ -359,7 +438,11 @@ class App extends React.Component {
               type="text"
               onChange={this.onChange}
               onEnter={this.addTask}
+              onBlur={this.onBlur}
               value={this.state.mainTask}
+              valid={this.state.validMainTask}
+              showError={this.state.showErrorMainTask}
+              errorText="Type in a task!"
             />
             <button onClick={this.addTask}>Add Task</button>
             <ListContainer
