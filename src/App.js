@@ -38,6 +38,10 @@ class App extends React.Component {
     this.setState({ ...data });
   };
 
+  scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
+
   previousPage = (e) => {
     this.setState((state) => {
       if (state.finished) {
@@ -53,7 +57,7 @@ class App extends React.Component {
       return {
         currentPageIndex: pageIndex,
       };
-    });
+    }, this.scrollToTop);
 
     e.preventDefault();
   };
@@ -70,7 +74,7 @@ class App extends React.Component {
       return {
         currentPageIndex: pageIndex,
       };
-    });
+    }, this.scrollToTop);
 
     e.preventDefault();
   };
@@ -154,8 +158,8 @@ class App extends React.Component {
         })
     );
     e.preventDefault();
-  }
-  
+  };
+
   deleteWorkExperience = (id) => {
     this.setState({
       workExperiences: this.state.workExperiences.filter((w) => w.id !== id),
