@@ -16,6 +16,7 @@ class App extends React.Component {
 
     this.state = {
       currentPageIndex: 0,
+      finished: false,
       firstName: '',
       lastName: '',
       email: '',
@@ -39,6 +40,13 @@ class App extends React.Component {
 
   previousPage = (e) => {
     this.setState((state) => {
+      if (state.finished) {
+        return {
+          currentPageIndex: 2,
+          finished: false,
+        };
+      }
+
       const pageIndex = state.currentPageIndex - 1;
       if (pageIndex < 0) return;
 
@@ -53,7 +61,11 @@ class App extends React.Component {
   nextPage = (e) => {
     this.setState((state) => {
       const pageIndex = state.currentPageIndex + 1;
-      if (pageIndex >= this.pages.length) return;
+      if (pageIndex >= this.pages.length) {
+        return {
+          finished: true,
+        };
+      }
 
       return {
         currentPageIndex: pageIndex,
@@ -129,6 +141,11 @@ class App extends React.Component {
           toYear: currentYear,
         })
     );
+    e.preventDefault();
+  };
+
+  print = (e) => {
+    window.print();
     e.preventDefault();
   };
 
@@ -277,20 +294,40 @@ class App extends React.Component {
       },
     ];
 
-    const { currentPageIndex } = this.state;
+    const { currentPageIndex, finished } = this.state;
     const { title, content } = this.pages[currentPageIndex];
+
+    const main = finished ? (
+      <div className="congratulations">
+        <h1>Congratulations!</h1>
+        <p>You have finished creating your personal CV!</p>
+        <p>
+          You may print it now! Use A4 size.{' '}
+          {
+            '(The button below might not work on mobile so use the print button on your browser.)'
+          }
+        </p>
+        <button className="primary" onClick={this.print}>
+          Print
+        </button>
+        <p>Found a mistake? Go back to fix it!</p>
+        <button onClick={this.previousPage}>Prev</button>
+      </div>
+    ) : (
+      <Form
+        title={title}
+        content={content}
+        pageIndex={currentPageIndex}
+        lastPage={currentPageIndex === this.pages.length - 1}
+        onPreviousPage={this.previousPage}
+        onNextPage={this.nextPage}
+      />
+    );
 
     return (
       <div className="App">
         <TopNavBar />
-        <Form
-          title={title}
-          content={content}
-          pageIndex={currentPageIndex}
-          lastPage={currentPageIndex === this.pages.length - 1}
-          onPreviousPage={this.previousPage}
-          onNextPage={this.nextPage}
-        />
+        {main}
         <div className="preview">
           <h2>Preview</h2>
           <CVViewer data={this.state} />

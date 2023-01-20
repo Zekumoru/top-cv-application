@@ -7,6 +7,18 @@
     }
   }
 
+  .congratulations {
+    padding: 0 20px;
+
+    h1 {
+      margin-bottom: 16px;
+    }
+
+    button:not(:last-child) {
+      margin: 8px 0 16px 0px;
+    }
+  }
+
   > .printable {
     display: none;
   }
