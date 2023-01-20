@@ -1,7 +1,13 @@
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import '../styles/WorkExperienceListItem.scss';
 
 class WorkExperienceListItem extends React.Component {
+  delete = () => {
+    this.props.onDelete(this.props.workExperience.id);
+  };
+
   render() {
     const { positionTitle, companyName, fromYear, toYear, mainTasks } =
       this.props.workExperience;
@@ -13,7 +19,14 @@ class WorkExperienceListItem extends React.Component {
 
     return (
       <li className="WorkExperienceListItem">
-        <p className="position-title">{positionTitle}</p>
+        <p className="position-title">
+          {positionTitle}{' '}
+          <FontAwesomeIcon
+            onClick={this.delete}
+            className="delete-icon"
+            icon={faTrash}
+          />
+        </p>
         <p className="company-name">{companyName}</p>
         <p className="duration">
           {toYear} - {fromYear}

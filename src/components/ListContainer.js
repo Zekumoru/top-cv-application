@@ -6,17 +6,34 @@ import WorkExperienceListItem from './WorkExperienceListItem';
 
 class ListContainer extends React.Component {
   render() {
-    const { type, list, emptyText } = this.props;
+    const { type, list, emptyText, onDelete } = this.props;
     const items = [];
 
     list.forEach((item) => {
       if (type === 'education') {
-        items.push(<EducationListItem key={item.id} education={item} />);
+        items.push(
+          <EducationListItem
+            key={item.id}
+            education={item}
+            onDelete={onDelete}
+          />
+        );
       } else if (type === 'task') {
-        items.push(<TaskListItem key={item.id} task={item.task} />);
+        items.push(
+          <TaskListItem
+            key={item.id}
+            id={item.id}
+            task={item.task}
+            onDelete={onDelete}
+          />
+        );
       } else if (type === 'work-experience') {
         items.push(
-          <WorkExperienceListItem key={item.id} workExperience={item} />
+          <WorkExperienceListItem
+            key={item.id}
+            workExperience={item}
+            onDelete={onDelete}
+          />
         );
       }
     });

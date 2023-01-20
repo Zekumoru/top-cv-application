@@ -16,7 +16,7 @@ class App extends React.Component {
 
     this.state = {
       currentPageIndex: 0,
-      finished: true,
+      finished: false,
       firstName: '',
       lastName: '',
       email: '',
@@ -101,6 +101,12 @@ class App extends React.Component {
     e.preventDefault();
   };
 
+  deleteEducation = (id) => {
+    this.setState({
+      educations: this.state.educations.filter((e) => e.id !== id),
+    });
+  };
+
   addTask = (e) => {
     this.setState(
       {
@@ -115,6 +121,12 @@ class App extends React.Component {
       () => this.setState({ mainTask: '' })
     );
     e.preventDefault();
+  };
+
+  deleteTask = (id) => {
+    this.setState({
+      mainTasks: this.state.mainTasks.filter((t) => t.id !== id),
+    });
   };
 
   addWorkExperience = (e) => {
@@ -142,6 +154,12 @@ class App extends React.Component {
         })
     );
     e.preventDefault();
+  }
+  
+  deleteWorkExperience = (id) => {
+    this.setState({
+      workExperiences: this.state.workExperiences.filter((w) => w.id !== id),
+    });
   };
 
   print = (e) => {
@@ -227,6 +245,7 @@ class App extends React.Component {
               list={this.state.educations}
               type="education"
               emptyText="No education added yet."
+              onDelete={this.deleteEducation}
             />
           </div>
         ),
@@ -262,6 +281,7 @@ class App extends React.Component {
               list={this.state.mainTasks}
               type="task"
               emptyText="No tasks added yet."
+              onDelete={this.deleteTask}
             />
             <LabeledInput
               id="from-year"
@@ -288,6 +308,7 @@ class App extends React.Component {
               list={this.state.workExperiences}
               type="work-experience"
               emptyText="No experiences added yet."
+              onDelete={this.deleteWorkExperience}
             />
           </div>
         ),
