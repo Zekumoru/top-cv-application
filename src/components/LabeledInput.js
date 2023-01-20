@@ -17,14 +17,36 @@ class LabeledInput extends React.Component {
   };
 
   onChange = (e) => {
+    const key = CamelCaseConverter.fromHyphenCase(this.props.id);
     const data = {};
-    data[CamelCaseConverter.fromHyphenCase(this.props.id)] = e.target.value;
 
-    this.props.onChange(data);
+    data[key] = e.target.value;
+    this.props.onChange({
+      type: this.props.type,
+      value: e.target.value,
+      key,
+    });
+  };
+
+  onBlur = (e) => {
+    if (typeof this.props.onBlur !== 'function') return;
+
+    this.props.onBlur({
+      element: e.target,
+      key: CamelCaseConverter.fromHyphenCase(this.props.id),
+    });
   };
 
   render() {
-    const { id, label, type } = this.props;
+    const {
+      id,
+      label,
+      type,
+      valid,
+      aggressiveValidation,
+      errorText,
+      showError,
+    } = this.props;
     let input;
 
     if (type === 'dropdown') {
@@ -60,14 +82,23 @@ class LabeledInput extends React.Component {
           value={this.props.value}
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}
+          onBlur={this.onBlur}
+          className={
+            !valid && (showError || aggressiveValidation) ? 'error' : ''
+          }
         />
       );
     }
 
+    const errorMessage =
+      (!valid && aggressiveValidation) || showError ? (
+        <p className="error-message">{errorText || 'Invalid input!'}</p>
+      ) : null;
     return (
       <div className="LabeledInput">
         <label htmlFor={id}>{label}</label>
         {input}
+        {errorMessage}
       </div>
     );
   }
