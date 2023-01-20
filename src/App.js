@@ -35,6 +35,10 @@ class App extends React.Component {
   }
 
   onChange = (data) => {
+    if (data.fromYear && data.fromYear > this.state.toYear) {
+      this.setState({ toYear: data.fromYear });
+    }
+
     this.setState({ ...data });
   };
 
@@ -239,7 +243,7 @@ class App extends React.Component {
               id="to-year"
               label="To"
               type="dropdown"
-              rangeFrom={1920}
+              rangeFrom={this.state.fromYear}
               rangeTo={new Date().getFullYear()}
               onChange={this.onChange}
               value={this.state.toYear}
@@ -300,7 +304,7 @@ class App extends React.Component {
               id="to-year"
               label="To"
               type="dropdown"
-              rangeFrom={1920}
+              rangeFrom={this.state.fromYear}
               rangeTo={new Date().getFullYear()}
               onChange={this.onChange}
               value={this.state.toYear}
