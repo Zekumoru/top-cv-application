@@ -292,7 +292,7 @@ class App extends React.Component {
         />
         <div className="preview">
           <h2>Preview</h2>
-          <CV />
+          <CV data={this.state} />
         </div>
       </div>
     );
