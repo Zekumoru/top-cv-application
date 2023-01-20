@@ -154,8 +154,8 @@ class App extends React.Component {
         })
     );
     e.preventDefault();
-  };
-
+  }
+  
   deleteWorkExperience = (id) => {
     this.setState({
       workExperiences: this.state.workExperiences.filter((w) => w.id !== id),
