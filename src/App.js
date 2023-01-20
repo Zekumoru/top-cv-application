@@ -3,9 +3,10 @@ import Form from './components/Form';
 import TopNavBar from './components/TopNavBar';
 import LabeledInput from './components/LabeledInput';
 import ListContainer from './components/ListContainer';
-import CV from './components/CV';
 import { nanoid } from 'nanoid';
 import './styles/App.scss';
+import CVViewer from './components/CVViewer';
+import CV from './components/CV';
 
 const currentYear = new Date().getFullYear();
 
@@ -292,8 +293,9 @@ class App extends React.Component {
         />
         <div className="preview">
           <h2>Preview</h2>
-          <CV data={this.state} />
+          <CVViewer data={this.state} />
         </div>
+        <CV data={this.state} />
       </div>
     );
   }

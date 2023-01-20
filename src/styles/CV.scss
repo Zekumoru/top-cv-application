@@ -44,7 +44,7 @@
     width: 9em;
     font-size: 1em;
     font-weight: 400;
-    border-bottom: 0.125em solid black;
+    border-bottom: 0.08em solid black;
     margin-top: 0.5em;
   }
 
@@ -70,5 +70,10 @@
 
   .bullet {
     margin-right: 0.4em;
+  }
+
+  @media print {
+    width: 793.7px;
+    box-shadow: none;
   }
 }
