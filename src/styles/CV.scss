@@ -75,5 +75,9 @@
   @media print {
     width: 793.7px;
     box-shadow: none;
+
+    footer {
+      display: none;
+    }
   }
 }

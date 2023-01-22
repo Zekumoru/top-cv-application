@@ -7,6 +7,7 @@ import { nanoid } from 'nanoid';
 import './styles/App.scss';
 import CVViewer from './components/CVViewer';
 import CV from './components/CV';
+import Footer from './components/Footer';
 
 const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 const PHONE_NUMBER_REGEX =
@@ -487,7 +488,7 @@ class App extends React.Component {
     const { title, content } = this.pages[currentPageIndex];
 
     const main = finished ? (
-      <div className="congratulations">
+      <div className="congratulations main">
         <h1>Congratulations!</h1>
         <p>You have finished creating your personal CV!</p>
         <p>
@@ -504,6 +505,7 @@ class App extends React.Component {
       </div>
     ) : (
       <Form
+        className="main"
         title={title}
         content={content}
         pageIndex={currentPageIndex}
@@ -522,6 +524,7 @@ class App extends React.Component {
           <CVViewer data={this.state} />
         </div>
         <CV data={this.state} />
+        <Footer />
       </div>
     );
   }

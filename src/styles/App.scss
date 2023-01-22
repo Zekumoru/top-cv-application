@@ -1,6 +1,8 @@
 .App {
+  min-height: 100vh;
+
   .preview {
-    padding: 20px;
+    padding: 0 20px;
 
     > h2 {
       margin-bottom: 16px;
@@ -19,6 +21,10 @@
     }
   }
 
+  .Footer {
+    grid-column: 1 / -1;
+  }
+
   > .printable {
     display: none;
   }
@@ -30,6 +36,23 @@
 
     .printable {
       display: block;
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: 4fr 3fr;
+    grid-template-rows: auto 1fr auto;
+
+    .TopNavBar {
+      grid-column: 1 / -1;
+    }
+
+    .preview {
+      padding-top: 0;
     }
   }
 }
