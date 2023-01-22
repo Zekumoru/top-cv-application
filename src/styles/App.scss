@@ -1,8 +1,8 @@
 .App {
-  margin-bottom: 20px;
+  min-height: 100vh;
 
   .preview {
-    padding: 20px;
+    padding: 0 20px;
 
     > h2 {
       margin-bottom: 16px;
@@ -19,6 +19,10 @@
     button:not(:last-child) {
       margin: 8px 0 16px 0px;
     }
+  }
+
+  .Footer {
+    grid-column: 1 / -1;
   }
 
   > .printable {
@@ -41,6 +45,7 @@
     margin-right: auto;
     display: grid;
     grid-template-columns: 4fr 3fr;
+    grid-template-rows: auto 1fr auto;
 
     .TopNavBar {
       grid-column: 1 / -1;
