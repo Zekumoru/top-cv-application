@@ -487,7 +487,7 @@ class App extends React.Component {
     const { title, content } = this.pages[currentPageIndex];
 
     const main = finished ? (
-      <div className="congratulations">
+      <div className="congratulations main">
         <h1>Congratulations!</h1>
         <p>You have finished creating your personal CV!</p>
         <p>
@@ -504,6 +504,7 @@ class App extends React.Component {
       </div>
     ) : (
       <Form
+        className="main"
         title={title}
         content={content}
         pageIndex={currentPageIndex}

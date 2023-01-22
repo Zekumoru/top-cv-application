@@ -3,8 +3,15 @@ import '../styles/Form.scss';
 
 class Form extends React.Component {
   render() {
-    const { title, content, pageIndex, lastPage, onPreviousPage, onNextPage } =
-      this.props;
+    const {
+      title,
+      content,
+      pageIndex,
+      lastPage,
+      onPreviousPage,
+      onNextPage,
+      className,
+    } = this.props;
 
     let prevBtn = null;
     if (pageIndex > 0) {
@@ -16,7 +23,7 @@ class Form extends React.Component {
     }
 
     return (
-      <form className="Form">
+      <form className={`Form ${className}`}>
         <h1 className="title">{title}</h1>
         {content}
         <div className="buttons">
