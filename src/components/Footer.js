@@ -7,14 +7,27 @@ class Footer extends React.Component {
   render() {
     return (
       <footer className="Footer">
-        Made by Zekumoru{' '}
-        <a
-          href="https://github.com/Zekumoru/top-cv-application"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          <FontAwesomeIcon className="icon" icon={faGithub} />
-        </a>
+        <p className="made-by">
+          Made by Zekumoru{' '}
+          <a
+            href="https://github.com/Zekumoru/top-cv-application"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <FontAwesomeIcon className="icon" icon={faGithub} />
+          </a>
+        </p>
+        <p className="credits">
+          CV favicon icon by{' '}
+          <a
+            href="https://www.flaticon.com/free-icon/resume_3024497"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            lutfix
+          </a>{' '}
+          on Flaticon
+        </p>
       </footer>
     );
   }

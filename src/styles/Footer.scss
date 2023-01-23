@@ -1,16 +1,31 @@
 .Footer {
   display: flex;
+  flex-direction: column;
   padding: 20px;
-  align-items: center;
-  gap: 8px;
+  gap: 4px;
 
-  .icon {
-    font-size: 1.4em;
-    cursor: pointer;
+  a {
     color: black;
   }
 
+  .made-by {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .icon {
+      font-size: 1.4em;
+      cursor: pointer;
+    }
+  }
+
   @media only screen and (min-width: 768px) {
-    justify-content: center;
+    p {
+      text-align: center;
+    }
+
+    .made-by {
+      justify-content: center;
+    }
   }
 }
