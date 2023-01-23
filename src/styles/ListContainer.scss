@@ -9,10 +9,18 @@
   gap: 6px;
   overflow-y: auto;
 
+  p {
+    word-break: break-word;
+  }
+
   li {
     background-color: white;
     padding: 16px;
     border-radius: 4px;
+
+    p:first-child {
+      margin-bottom: 4px;
+    }
   }
 
   .empty-text {
