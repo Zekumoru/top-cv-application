@@ -9,6 +9,12 @@
   gap: 6px;
   overflow-y: auto;
 
+  li {
+    background-color: white;
+    padding: 16px;
+    border-radius: 4px;
+  }
+
   .empty-text {
     display: none;
   }
@@ -20,8 +26,12 @@
     place-items: center;
   }
 
+  .delete-icon-container {
+    display: flex;
+  }
+
   .delete-icon {
-    margin-left: 2px;
+    margin-left: auto;
     cursor: pointer;
   }
 }

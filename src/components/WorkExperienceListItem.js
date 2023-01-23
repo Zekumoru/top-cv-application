@@ -19,7 +19,7 @@ class WorkExperienceListItem extends React.Component {
 
     return (
       <li className="WorkExperienceListItem">
-        <p className="position-title">
+        <p className="position-title delete-icon-container">
           {positionTitle}{' '}
           <FontAwesomeIcon
             onClick={this.delete}

@@ -1,7 +1,6 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import '../styles/TaskListItem.scss';
 
 class TaskListItem extends React.Component {
   delete = () => {
@@ -11,7 +10,7 @@ class TaskListItem extends React.Component {
   render() {
     const { task } = this.props;
     return (
-      <li className="TaskListItem">
+      <li className="TaskListItem delete-icon-container">
         {task}{' '}
         <FontAwesomeIcon
           onClick={this.delete}

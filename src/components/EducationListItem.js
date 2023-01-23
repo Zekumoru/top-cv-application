@@ -13,7 +13,7 @@ class EducationListItem extends React.Component {
 
     return (
       <li className="EducationListItem">
-        <p className="title-of-study">
+        <p className="title-of-study delete-icon-container">
           {titleOfStudy}{' '}
           <FontAwesomeIcon
             onClick={this.delete}
