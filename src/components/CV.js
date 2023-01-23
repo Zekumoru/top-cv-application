@@ -5,22 +5,9 @@ import React from 'react';
 import '../styles/CV.scss';
 
 class CV extends React.Component {
-  getEducationElements(educations) {
-    if (educations.length === 0) {
-      const samples = [];
-      for (let i = 1; i <= 3; i++) {
-        samples.push(
-          <li key={'sample-' + i}>
-            <h3 className="title-of-study">Some Degree</h3>
-            <p className="school-name">Some University</p>
-            <p className="duration">2023 - 2023</p>
-          </li>
-        );
-      }
-      return samples;
-    }
-
-    return educations.map((education) => {
+  getEducationElements(educations, placeholder) {
+    const toProcess = educations.length === 0 ? placeholder : educations;
+    return toProcess.map((education) => {
       return (
         <li key={education.id}>
           <h3 className="title-of-study">{education.titleOfStudy}</h3>
@@ -33,34 +20,10 @@ class CV extends React.Component {
     });
   }
 
-  getWorkExperienceElements(workExperiences) {
-    if (workExperiences.length === 0) {
-      const samples = [];
-      for (let i = 1; i <= 3; i++) {
-        samples.push(
-          <li key={'sample-' + i}>
-            <h3 className="position-title">Some Position</h3>
-            <p className="company-name">Some Company</p>
-            <p className="duration">2023 - 2023</p>
-            <h4>Main Tasks</h4>
-            <ul>
-              <li>
-                <span className="bullet">&gt;</span>Task A
-              </li>
-              <li>
-                <span className="bullet">&gt;</span>Task B
-              </li>
-              <li>
-                <span className="bullet">&gt;</span>Task C
-              </li>
-            </ul>
-          </li>
-        );
-      }
-      return samples;
-    }
-
-    return workExperiences.map((workExperience) => {
+  getWorkExperienceElements(workExperiences, placeholder) {
+    const toProcess =
+      workExperiences.length === 0 ? placeholder : workExperiences;
+    return toProcess.map((workExperience) => {
       return (
         <li key={workExperience.id}>
           <h3 className="position-title">{workExperience.positionTitle}</h3>
@@ -88,24 +51,29 @@ class CV extends React.Component {
 
   render() {
     const { data } = this.props;
-    const educations = this.getEducationElements(data.educations);
+    const educations = this.getEducationElements(
+      data.educations,
+      data.placeholder.educations
+    );
     const workExperiences = this.getWorkExperienceElements(
-      data.workExperiences
+      data.workExperiences,
+      data.placeholder.workExperiences
     );
 
     return (
       <div className="cv printable" ref={this.props.refProp}>
         <section className="personal-details">
           <h1>
-            {data.firstName || 'FirstName'} {data.lastName || 'LastName'}
+            {data.firstName || data.placeholder.firstName}{' '}
+            {data.lastName || data.placeholder.lastName}
           </h1>
           <p className="email">
             <FontAwesomeIcon icon={faEnvelope} />
-            {data.email || 'email@example.com'}
+            {data.email || data.placeholder.email}
           </p>
           <p className="phone-number">
             <FontAwesomeIcon icon={faPhone} />
-            {data.phoneNumber || '+12 123 456 7890'}
+            {data.phoneNumber || data.placeholder.phoneNumber}
           </p>
         </section>
         <section className="education">

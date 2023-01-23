@@ -22,6 +22,98 @@ class App extends React.Component {
     this.state = {
       currentPageIndex: 0,
       finished: false,
+      placeholder: {
+        firstName: 'John',
+        lastName: 'Mueller',
+        email: 'john.mueller@email.com',
+        phoneNumber: '(123) 456-7890',
+        titleOfStudy: 'B.S. Computer Science',
+        schoolName: 'Stanford University',
+        companyName: 'Facebook',
+        positionTitle: 'Web Developer',
+        mainTask: 'Developed documentation for ReactJS',
+        educations: [
+          {
+            id: nanoid(),
+            titleOfStudy: 'M.A. Mathematics',
+            schoolName: 'Stanford University',
+            fromYear: 2012,
+            toYear: 2014,
+          },
+          {
+            id: nanoid(),
+            titleOfStudy: 'B.S. Computer Science',
+            schoolName: 'Stanford University',
+            fromYear: 2009,
+            toYear: 2012,
+          },
+        ],
+        workExperiences: [
+          {
+            id: nanoid(),
+            positionTitle: 'Web Developer',
+            companyName: 'Facebook',
+            fromYear: 2019,
+            toYear: 2022,
+            mainTasks: [
+              {
+                id: nanoid(),
+                task: 'Coached 4 junior designers in ReactJS and Redux.',
+              },
+              {
+                id: nanoid(),
+                task: 'Created and oversaw wireframe designs from client requests.',
+              },
+              {
+                id: nanoid(),
+                task: 'Developed documentation to teach new team members company standards and best practices in ReactJS and NodeJS.',
+              },
+            ],
+          },
+          {
+            id: nanoid(),
+            positionTitle: 'Coca-Cola',
+            companyName: 'Web Designer',
+            fromYear: 2017,
+            toYear: 2019,
+            mainTasks: [
+              {
+                id: nanoid(),
+                task: 'Built landing pages mock designs and wireframes for new product concepts.',
+              },
+              {
+                id: nanoid(),
+                task: 'Created accessible, responsive, and functional user interfaces.',
+              },
+              {
+                id: nanoid(),
+                task: 'Created the user experience that fetched, parsed, and formatted analytic data, and relayed it into React components.',
+              },
+            ],
+          },
+          {
+            id: nanoid(),
+            positionTitle: 'Creative Designs',
+            companyName: 'Web Development Intern',
+            fromYear: 2016,
+            toYear: 2017,
+            mainTasks: [
+              {
+                id: nanoid(),
+                task: 'Developed UI with modern JavaScript frameworks, HTML5, and CSS3 which improved user satisfaction by 40%.',
+              },
+              {
+                id: nanoid(),
+                task: 'Developed object-oriented code in NodeJS with 100% accordance to industry and company standards.',
+              },
+              {
+                id: nanoid(),
+                task: 'Learned asynchronicity, design patterns, and multi-threading, and their impact on the application.',
+              },
+            ],
+          },
+        ],
+      },
       firstName: '',
       validFirstName: false,
       aggressiveFirstName: false,
@@ -310,6 +402,7 @@ class App extends React.Component {
               id="first-name"
               label="First Name"
               type="text"
+              placeholder={this.state.placeholder.firstName}
               onChange={this.onChange}
               onBlur={this.onBlur}
               value={this.state.firstName}
@@ -321,6 +414,7 @@ class App extends React.Component {
               id="last-name"
               label="Last Name"
               type="text"
+              placeholder={this.state.placeholder.lastName}
               onChange={this.onChange}
               onBlur={this.onBlur}
               value={this.state.lastName}
@@ -332,6 +426,7 @@ class App extends React.Component {
               id="email"
               label="Email"
               type="email"
+              placeholder={this.state.placeholder.email}
               onChange={this.onChange}
               onBlur={this.onBlur}
               value={this.state.email}
@@ -343,6 +438,7 @@ class App extends React.Component {
               id="phone-number"
               label="Phone Number"
               type="tel"
+              placeholder={this.state.placeholder.phoneNumber}
               onChange={this.onChange}
               onBlur={this.onBlur}
               value={this.state.phoneNumber}
@@ -361,6 +457,7 @@ class App extends React.Component {
               id="title-of-study"
               label="Title of Study"
               type="text"
+              placeholder={this.state.placeholder.titleOfStudy}
               onChange={this.onChange}
               onBlur={this.onBlur}
               value={this.state.titleOfStudy}
@@ -372,6 +469,7 @@ class App extends React.Component {
               id="school-name"
               label="School Name"
               type="text"
+              placeholder={this.state.placeholder.schoolName}
               onChange={this.onChange}
               onBlur={this.onBlur}
               value={this.state.schoolName}
@@ -415,6 +513,7 @@ class App extends React.Component {
               id="company-name"
               label="Company Name"
               type="text"
+              placeholder={this.state.placeholder.companyName}
               onChange={this.onChange}
               onBlur={this.onBlur}
               value={this.state.companyName}
@@ -426,6 +525,7 @@ class App extends React.Component {
               id="position-title"
               label="Position Title"
               type="text"
+              placeholder={this.state.placeholder.positionTitle}
               onChange={this.onChange}
               onBlur={this.onBlur}
               value={this.state.positionTitle}
@@ -437,6 +537,7 @@ class App extends React.Component {
               id="main-task"
               label="Main Tasks"
               type="text"
+              placeholder={this.state.placeholder.mainTask}
               onChange={this.onChange}
               onEnter={this.addTask}
               onBlur={this.onBlur}

@@ -42,6 +42,8 @@ class LabeledInput extends React.Component {
       id,
       label,
       type,
+      placeholder,
+      value,
       valid,
       aggressiveValidation,
       errorText,
@@ -63,12 +65,7 @@ class LabeledInput extends React.Component {
 
       input = (
         <div className="select-wrapper">
-          <select
-            name={id}
-            id={id}
-            onChange={this.onChange}
-            value={this.props.value}
-          >
+          <select name={id} id={id} onChange={this.onChange} value={value}>
             {options}
           </select>
           <FontAwesomeIcon icon={faChevronDown} className="chevron" />
@@ -79,7 +76,8 @@ class LabeledInput extends React.Component {
         <input
           type={type}
           id={id}
-          value={this.props.value}
+          placeholder={placeholder}
+          value={value}
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}
           onBlur={this.onBlur}
