@@ -20,7 +20,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      currentPageIndex: 0,
+      currentPageIndex: 1,
       finished: false,
       placeholder: {
         firstName: 'John',
