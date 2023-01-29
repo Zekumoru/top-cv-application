@@ -1,40 +1,37 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useRef } from 'react';
 import '../styles/CV.scss';
 import CV from './CV';
 
 const MM_PER_16PX = 127 / 30;
 
-class CVViewer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.cvViewer = React.createRef();
-    this.cvRef = React.createRef();
-  }
+function CVViewer({ data }) {
+  const cvViewer = useRef(null);
+  const cvRef = useRef(null);
 
-  updateRemSize = () => {
-    const { width } = this.cvRef.current.getBoundingClientRect();
-    const pixelPerMM = width / 210;
-    const currentRemSize = MM_PER_16PX * pixelPerMM;
+  useEffect(() => {
+    const updateRemSize = () => {
+      const { width } = cvRef.current.getBoundingClientRect();
+      const pixelPerMM = width / 210;
+      const currentRemSize = MM_PER_16PX * pixelPerMM;
 
-    this.cvViewer.current.style.fontSize = `${currentRemSize}px`;
-  };
+      cvViewer.current.style.fontSize = `${currentRemSize}px`;
+    };
 
-  render() {
-    return (
-      <div className="CVViewer" ref={this.cvViewer}>
-        <CV data={this.props.data} ref={this.cvRef} />
-      </div>
-    );
-  }
+    updateRemSize();
+    window.addEventListener('resize', updateRemSize);
 
-  componentDidMount() {
-    this.updateRemSize();
-    window.addEventListener('resize', this.updateRemSize);
-  }
+    return () => {
+      window.removeEventListener('resize', updateRemSize);
+    };
+  }, []);
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateRemSize);
-  }
+  return (
+    <div className="CVViewer" ref={cvViewer}>
+      <CV data={data} ref={cvRef} />
+    </div>
+  );
 }
 
 export default CVViewer;
