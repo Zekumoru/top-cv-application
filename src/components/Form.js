@@ -9,6 +9,7 @@ function Form({
   onPreviousPage,
   onNextPage,
   className,
+  onSubmit,
 }) {
   let prevBtn = null;
   if (pageIndex > 0) {
@@ -20,7 +21,7 @@ function Form({
   }
 
   return (
-    <form className={`Form ${className}`}>
+    <form onSubmit={onSubmit} className={`Form ${className}`}>
       <h1 className="title">{title}</h1>
       {content}
       <div className="buttons">
