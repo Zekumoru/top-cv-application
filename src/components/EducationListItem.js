@@ -4,9 +4,10 @@ import React from 'react';
 import '../styles/EducationListItem.scss';
 
 function EducationListItem({ onDelete, education }) {
-  const { titleOfStudy, schoolName, fromYear, toYear } = education;
+  const { id, titleOfStudy, schoolName, fromYear, toYear } = education;
+
   const remove = () => {
-    onDelete(education.id);
+    onDelete(id);
   };
 
   return (
